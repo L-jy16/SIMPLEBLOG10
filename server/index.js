@@ -2,25 +2,22 @@ const express = require("express")
 const path = require("path")
 const mongoose = require("mongoose");
 
-
 const app = express()
 const port = 5050;
-const config = require("./config/key.js")
-
 
 app.use(express.static(path.join(__dirname, "../client/build/")));
-app.use("/image", express.static("./image"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.use("/api/post", require("./router/post.js"));
-app.use("/api/user", require("./router/user.js"));
 
 app.listen(port, () => {
-    mongoose.connect(config.mongoURI)
+    mongoose
+        .connect(
+            "mongodb+srv://leejiyoung492:rhqnr1159*@cluster0.p8x27w7.mongodb.net/?retryWrites=true&w=majority"
+        )
         .then(() => {
             console.log("running --->" + port);
-            console.log("mongoose --> connecting");
+            console.log("connecting ---> + mongDB..");
         })
         .catch((err) => {
             console.log(err)
