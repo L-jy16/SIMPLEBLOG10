@@ -2,22 +2,27 @@ const express = require("express")
 const path = require("path")
 const mongoose = require("mongoose");
 
+
 const app = express()
 const port = 5050;
+const config = require("./config/key.js")
+
 
 app.use(express.static(path.join(__dirname, "../client/build/")));
+app.use("/image", express.static("./image"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 
+// express.router 사용(페이지별 만들어 놓음)
+app.use("/api/post", require("./router/post.js"));
+// app.use("/api/user", require("./router/user.js"));
+
 app.listen(port, () => {
-    mongoose
-        .connect(
-            "mongodb+srv://leejiyoung492:rhqnr1159*@cluster0.p8x27w7.mongodb.net/?retryWrites=true&w=majority"
-        )
+    mongoose.connect(config.mongoURI)
         .then(() => {
             console.log("running --->" + port);
-            console.log("connecting ---> + mongDB..");
+            console.log("mongoose --> connecting");
         })
         .catch((err) => {
             console.log(err)
