@@ -16,7 +16,7 @@ app.use(express.urlencoded({ extended: true }));
 
 // express.router 사용(페이지별 만들어 놓음)
 app.use("/api/post", require("./router/post.js"));
-// app.use("/api/user", require("./router/user.js"));
+app.use("/api/user", require("./router/user.js"));
 
 app.listen(port, () => {
     mongoose.connect(config.mongoURI)

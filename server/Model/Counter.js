@@ -3,6 +3,7 @@ const mongoose = require("mongoose");
 const CounterSchema = new mongoose.Schema({
     name: String,
     postNum: Number,
+    userNum: Number,
 },
     { collection: "counter" });
 
